@@ -8,21 +8,27 @@ public class FollowCamera : MonoBehaviour
 {
     [SerializeField] private Transform _playerTrans;
     [SerializeField] private float _followSpeed;
-    [SerializeField] private float _rotationSpeed;
-    private Quaternion _startRotation;
-    private Vector3 _offset;
+    [SerializeField] private bool _isRotated = false;
+    private Vector3 _startPosition;
 
     private void Start()
     {
-        _offset = transform.position - _playerTrans.position;
-        _startRotation = transform.rotation;
+        _startPosition = _playerTrans.InverseTransformPoint(transform.position);
     }
 
     private void FixedUpdate()
     {
-        transform.position = Vector3.Lerp(transform.position, _playerTrans.position + transform.rotation * _offset,
-           _followSpeed * Time.fixedDeltaTime);
-        transform.rotation = Quaternion.Lerp(transform.rotation, _playerTrans.rotation, _rotationSpeed * Time.fixedDeltaTime);
+        if (_isRotated)
+        {
+            Vector3 newPos = _playerTrans.TransformPoint(_startPosition);
+            transform.position = Vector3.Lerp (transform.position, newPos, _followSpeed*Time.fixedDeltaTime);
+            transform.LookAt(_playerTrans);
+        }
+        else
+        {
+            Vector3 newPos = _playerTrans.TransformPoint(_startPosition);
+            transform.position = Vector3.Lerp(transform.position, newPos, _followSpeed * Time.fixedDeltaTime);
+        }
     }
 
 }

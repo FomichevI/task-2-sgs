@@ -21,7 +21,6 @@ public class CarPlayerController : MonoBehaviour
 {
     [SerializeField] private AxleInfo[] _carAxis;
     [SerializeField] private float _moveSpeed = 1;
-    [SerializeField] private float _maxMoveSpeed = 10;
     [SerializeField] private float _steerAngle = 26;
     [SerializeField] private GameObject[] _backHeadlights;
 
