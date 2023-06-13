@@ -30,18 +30,20 @@ public class HumanAnimator : MonoBehaviour
     private void FixedUpdate()
     {
         if (_isAimAnimation && _animator.GetLayerWeight(_aimLayerIndex) < 1)
-            _animator.SetLayerWeight(_aimLayerIndex, _animator.GetLayerWeight(_aimLayerIndex) + 0.1f);
+            _animator.SetLayerWeight(_aimLayerIndex, _animator.GetLayerWeight(_aimLayerIndex) + 0.2f);
         else if (!_isAimAnimation && _animator.GetLayerWeight(_aimLayerIndex) > 0)
-            _animator.SetLayerWeight(_aimLayerIndex, _animator.GetLayerWeight(_aimLayerIndex) - 0.1f);
+            _animator.SetLayerWeight(_aimLayerIndex, _animator.GetLayerWeight(_aimLayerIndex) - 0.2f);
     }
 
     public void Move(float verInput)
     {
         _animator.SetFloat("Speed", verInput);
+        _animator.SetBool("OnTheGround", true);
     }
     public void Jump()
     {
         _animator.SetTrigger("Jump");
+        _animator.SetBool("OnTheGround", false);
     }
 
     private void OnAnimatorIK()

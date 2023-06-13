@@ -7,12 +7,13 @@ public class HumanPlayerController : MonoBehaviour
     [SerializeField] private float _moveSpeed;
     [SerializeField] private float _rotationSpeed;
     [SerializeField] private float _jumpForce =1.5f;
-    [SerializeField] private GameObject _arrowPrefab;
     [SerializeField] private float _fireAngle = -5;
+    [SerializeField] private float _fireColldown = 1;
     private bool _onGround;
     private Rigidbody _rigidbody;
     private HumanAnimator _humanAnimator;
     private float _lastVerInput;
+    private float _currentFireCd;
 
     private void Awake()
     {
@@ -62,12 +63,19 @@ public class HumanPlayerController : MonoBehaviour
 
     public void Fire()
     {
-        if(_onGround)
+        if(_onGround && _currentFireCd <= 0)
         {
             _humanAnimator.StartFire();
             Quaternion newRotation = transform.rotation;
             newRotation.x = _fireAngle * Mathf.Deg2Rad;
-            GameObject projectile = Instantiate(_arrowPrefab,_humanAnimator._lookTargetObject.transform.position, newRotation);
+            GameObject projectile = Instantiate(Resources.Load<GameObject>("Prefabs/Arrow"),_humanAnimator._lookTargetObject.transform.position, newRotation);
+            _currentFireCd = _fireColldown;
         }
+    }
+
+    private void FixedUpdate()
+    {
+        if (_currentFireCd > 0)
+            _currentFireCd -= 0.02f;
     }
 }

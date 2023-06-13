@@ -5,8 +5,6 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(CarPlayerController))]
-
 public class CarPlayerInput : MonoBehaviour
 {
     public static CarPlayerInput Instance;
@@ -37,11 +35,11 @@ public class CarPlayerInput : MonoBehaviour
 
     void FixedUpdate()
     {
-        //if (Application.platform == RuntimePlatform.WindowsPlayer)
-        //{
-        //    _horizontalInput = Input.GetAxis("Horizontal");
-        //    _verticalInput = Input.GetAxis("Vertical");
-        //}
+        if (Application.platform == RuntimePlatform.WindowsEditor)
+        {
+            _horizontalInput = Input.GetAxis("Horizontal");
+            _verticalInput = Input.GetAxis("Vertical");
+        }
 
         if (_isForwardButtonPressed && _verticalInput < 1) _verticalInput += 0.1f;
         if (_isBackButtonPressed && _verticalInput > -1) _verticalInput -= 0.1f;

@@ -23,6 +23,16 @@ public class CarPlayerController : MonoBehaviour
     [SerializeField] private float _moveSpeed = 1;
     [SerializeField] private float _steerAngle = 26;
     [SerializeField] private GameObject[] _backHeadlights;
+    [Header("Smoke settings")]
+    [SerializeField] private ParticleSystem[] _smokePs;
+    [SerializeField] private float _minSpeedForSmoke = 20;
+    [SerializeField] private float _minAngleForSmoke = 30;
+    private Rigidbody _rigidbody;
+
+    private void Awake()
+    {
+        _rigidbody = GetComponent<Rigidbody>();
+    }
 
     public void Move(float verInput, float horInput)
     {
@@ -40,13 +50,42 @@ public class CarPlayerController : MonoBehaviour
             VisualizeWheel(axle.LeftWheel, axle.VisualLeftWheel);
         }
         if(verInput < 0)
-            foreach(GameObject go in _backHeadlights)
-                go.SetActive(true);
+            SwitchBackLight(true);
         else
-            foreach (GameObject go in _backHeadlights)
-                go.SetActive(false);
+            SwitchBackLight(false);
+        EmitSmokeFromWheels();
     }
     
+    private void EmitSmokeFromWheels()
+    {
+        if(_rigidbody.velocity.magnitude > _minSpeedForSmoke)
+        {
+            float angle = Quaternion.Angle(Quaternion.LookRotation(_rigidbody.velocity, Vector3.up), Quaternion.LookRotation(transform.forward, Vector3.up));
+            if(angle > _minAngleForSmoke && angle < 180 - _minAngleForSmoke)
+                SwitchSmoke(true);
+            else
+                SwitchSmoke(false);
+        }
+        else
+        {
+            SwitchSmoke(false);
+        }
+    }
+    private void SwitchSmoke(bool enable)
+    {        
+        foreach(ParticleSystem ps in _smokePs)
+        {
+            ParticleSystem.EmissionModule em = ps.emission;
+            em.enabled = enable;
+        }
+    }
+
+    private void SwitchBackLight(bool enable)
+    {
+        foreach (GameObject go in _backHeadlights)
+            go.SetActive(enable);
+    }
+
     private void VisualizeWheel(WheelCollider col, Transform visualWheel)
     {
         Vector3 position;
@@ -56,5 +95,4 @@ public class CarPlayerController : MonoBehaviour
         visualWheel.position = position;
         visualWheel.rotation = rotation;
     }
-
 }
