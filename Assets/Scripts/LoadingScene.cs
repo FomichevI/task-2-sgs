@@ -13,14 +13,14 @@ public class LoadingScene : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(DisplayLoadingScreen(PlayerPrefs.GetInt("SceneToLoad")));
+        StartCoroutine(DisplayLoadingScreen(PlayerPrefs.GetString("SceneToLoad")));
     }
 
-    IEnumerator DisplayLoadingScreen(int level)
+    IEnumerator DisplayLoadingScreen(string sceneName)
     {
         ProgressText.text = "Загрузка... " + _loadProgress + "%";
 
-        AsyncOperation async = SceneManager.LoadSceneAsync(level);
+        AsyncOperation async = SceneManager.LoadSceneAsync(sceneName);
         async.allowSceneActivation = false;
         while (!async.isDone)
         {

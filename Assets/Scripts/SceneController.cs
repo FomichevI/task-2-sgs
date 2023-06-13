@@ -39,11 +39,14 @@ public class SceneController : MonoBehaviour
     }
     public void BackToMenuScene()
     {
-        Load(1);
+        if (SceneManager.GetActiveScene().buildIndex != 0)
+            Load("MenuScene");
+        else
+            Application.Quit();
     }
-    public void Load(int index)
+    public void Load(string sceneName)
     {
-        PlayerPrefs.SetInt("SceneToLoad", index);
-        SceneManager.LoadScene(0);
+        PlayerPrefs.SetString("SceneToLoad", sceneName);
+        SceneManager.LoadScene("LoadingScene");
     }
 }
