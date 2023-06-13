@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
@@ -14,13 +12,13 @@ public class Projectile : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(_lifeTime > 0)
+        if (_lifeTime > 0)
         {
             _lifeTime -= 0.02f;
         }
         else
         {
             Destroy(gameObject);
-        }    
+        }
     }
 }

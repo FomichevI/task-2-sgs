@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Footprint : MonoBehaviour
@@ -7,7 +5,7 @@ public class Footprint : MonoBehaviour
     [SerializeField] private float _lifeTime;
     [SerializeField] private float _hidingTime;
     private float _currentHideTime;
-    private Vector3 _moduleScale;
+    private Vector3 _moduleScale; //Модуль, на который будет уменьшаться размер объекта со временем в каждом кадре
 
     private void Start()
     {
@@ -34,5 +32,4 @@ public class Footprint : MonoBehaviour
             }
         }
     }
-
 }

@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
 public class FollowCamera : MonoBehaviour
 {
@@ -21,7 +17,7 @@ public class FollowCamera : MonoBehaviour
         if (_isRotated)
         {
             Vector3 newPos = _playerTrans.TransformPoint(_startPosition);
-            transform.position = Vector3.Lerp (transform.position, newPos, _followSpeed*Time.fixedDeltaTime);
+            transform.position = Vector3.Lerp(transform.position, newPos, _followSpeed * Time.fixedDeltaTime);
             transform.LookAt(_playerTrans);
         }
         else
@@ -30,5 +26,4 @@ public class FollowCamera : MonoBehaviour
             transform.position = Vector3.Lerp(transform.position, newPos, _followSpeed * Time.fixedDeltaTime);
         }
     }
-
 }

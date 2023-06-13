@@ -1,6 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+[RequireComponent(typeof(HumanPlayerInput))]
+[RequireComponent(typeof(HumanAnimator))]
 
 public class HumanPlayerController : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class HumanPlayerController : MonoBehaviour
     private bool _onGround;
     private Rigidbody _rigidbody;
     private HumanAnimator _humanAnimator;
-    private float _lastVerInput;
+    private float _lastVerInput; //Необходимо для определения направления во время движения в воздухе
     private float _currentFireCd;
 
     private void Awake()

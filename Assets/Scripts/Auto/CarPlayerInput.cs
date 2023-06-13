@@ -1,13 +1,10 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class CarPlayerInput : MonoBehaviour
 {
-    public static CarPlayerInput Instance;
     [SerializeField] private Button _forwardButton;
     [SerializeField] private Button _backButton;
     [SerializeField] private Button _rightButton;
@@ -24,8 +21,6 @@ public class CarPlayerInput : MonoBehaviour
 
     void Start()
     {
-        if (Instance == null)
-            Instance = this;
         _carPlayerController = GetComponent<CarPlayerController>();
         AddEventToButton(_forwardButton, PressForwardButton, UpForwardButton);
         AddEventToButton(_backButton, PressBackButton, UpBackButton);
@@ -35,17 +30,17 @@ public class CarPlayerInput : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (Application.platform == RuntimePlatform.WindowsEditor)
-        {
-            _horizontalInput = Input.GetAxis("Horizontal");
-            _verticalInput = Input.GetAxis("Vertical");
-        }
+        //if (Application.platform == RuntimePlatform.WindowsEditor)
+        //{
+        //    _horizontalInput = Input.GetAxis("Horizontal");
+        //    _verticalInput = Input.GetAxis("Vertical");
+        //}
 
         if (_isForwardButtonPressed && _verticalInput < 1) _verticalInput += 0.1f;
         if (_isBackButtonPressed && _verticalInput > -1) _verticalInput -= 0.1f;
         if (!_isForwardButtonPressed && !_isBackButtonPressed && _verticalInput != 0)
             _verticalInput = _verticalInput < 0 ? (_verticalInput += 0.1f) : (_verticalInput -= 0.1f);
-        if(Mathf.Abs(_verticalInput) < 0.1f) _verticalInput = 0;
+        if (Mathf.Abs(_verticalInput) < 0.1f) _verticalInput = 0;
 
         if (_isRightButtonPressed && _horizontalInput < 1) _horizontalInput += 0.1f;
         if (_isLeftButtonPressed && _horizontalInput > -1) _horizontalInput -= 0.1f;

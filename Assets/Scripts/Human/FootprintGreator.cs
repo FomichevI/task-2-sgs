@@ -1,18 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-
 
 public class FootprintGreator : MonoBehaviour
 {
     [SerializeField] private Transform _humanTransform;
     [SerializeField] private GameObject _stepPrefab;
     [SerializeField] private LayerMask _groundMask;
+    [SerializeField] private int _groundLayerIndex = 6;
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.layer == 6)
+        if (other.gameObject.layer == _groundLayerIndex)
         {
             RaycastHit hit;
             if (Physics.Raycast(transform.position, Vector3.down, out hit, 2, _groundMask))
