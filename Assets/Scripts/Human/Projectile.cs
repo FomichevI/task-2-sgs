@@ -14,7 +14,7 @@ public class Projectile : MonoBehaviour
     {
         if (_lifeTime > 0)
         {
-            _lifeTime -= 0.02f;
+            _lifeTime -= Time.fixedDeltaTime;
         }
         else
         {

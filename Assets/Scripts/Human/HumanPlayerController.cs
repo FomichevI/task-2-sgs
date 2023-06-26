@@ -13,8 +13,11 @@ public class HumanPlayerController : MonoBehaviour
     private bool _onGround;
     private Rigidbody _rigidbody;
     private HumanAnimator _humanAnimator;
-    private float _lastVerInput; //Необходимо для определения направления во время движения в воздухе
+    //Необходимо для определения направления во время движения в воздухе
+    private float _lastVerInput; 
     private float _currentFireCd;
+    private const float _jumpForceMultiplier = 10000f;
+    private const int _groundLayerIndex = 6;
 
     private void Awake()
     {
@@ -46,7 +49,7 @@ public class HumanPlayerController : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.layer == 6)
+        if (collision.gameObject.layer == _groundLayerIndex)
         {
             _onGround = true;
         }
@@ -56,7 +59,7 @@ public class HumanPlayerController : MonoBehaviour
     {
         if (_onGround && _lastVerInput >= 0)
         {
-            _rigidbody.AddForce(Vector3.up * 10000 * _jumpForce);
+            _rigidbody.AddForce(Vector3.up * _jumpForceMultiplier * _jumpForce);
             _humanAnimator.Jump();
             _onGround = false;
         }
@@ -77,6 +80,6 @@ public class HumanPlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         if (_currentFireCd > 0)
-            _currentFireCd -= 0.02f;
+            _currentFireCd -= Time.fixedDeltaTime;
     }
 }

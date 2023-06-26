@@ -2,19 +2,21 @@ using UnityEngine;
 
 public class HumanAnimator : MonoBehaviour
 {
-    public Transform _lookTargetObject; //Точка строго перед персонажем, к ней будет тянуться рука во время стрельбы
+    //Точка строго перед персонажем, к ней будет тянуться рука во время стрельбы
+    public Transform _lookTargetObject; 
     [SerializeField] private Transform _leftHandObject;
     private Animator _animator;
     private int _aimAnimatorLayerIndex;
-    private bool _isAimAnimation = false; //Необходим для смягчения перехода анимации между слоями
+    //Необходим для смягчения перехода анимации между слоями
+    private bool _isAimAnimation = false; 
 
     private void Awake()
     {
         _animator = GetComponent<Animator>();
         _aimAnimatorLayerIndex = _animator.GetLayerIndex("Aiming");
     }
-
-    public void EndShowAim() //Вызывается в анимации
+    //Вызывается в анимации
+    public void EndShowAim() 
     {
         _isAimAnimation = false;
     }
@@ -44,8 +46,8 @@ public class HumanAnimator : MonoBehaviour
         _animator.SetTrigger("Jump");
         _animator.SetBool("OnTheGround", false);
     }
-
-    private void OnAnimatorIK() //Привязываем левую руку персонажа, чтобы она  сметрела вперед
+    //Привязываем левую руку персонажа, чтобы она  сметрела вперед
+    private void OnAnimatorIK() 
     {
         if (_lookTargetObject != null)
         {

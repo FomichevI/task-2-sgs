@@ -897,9 +897,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27c5f283ee0321f4988d4c669191aaf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _isFallow: 1
   _playerTrans: {fileID: 809794695648149050}
   _followSpeed: 7
   _rotationSpeed: 5
+  _raicingMod: 1
+  _shakeCamera: 0
 --- !u!1 &800254362
 GameObject:
   m_ObjectHideFlags: 0

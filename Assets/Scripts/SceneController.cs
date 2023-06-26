@@ -16,8 +16,8 @@ public class SceneController : MonoBehaviour
             if (Input.GetKey(KeyCode.Escape))
                 BackToMenuScene();
         }
-
-        else if (Application.platform == RuntimePlatform.IPhonePlayer) //Свайп вправо на IOS
+        //Свайп вправо на IOS
+        else if (Application.platform == RuntimePlatform.IPhonePlayer) 
         {
             if (Input.touchCount > 0)
             {

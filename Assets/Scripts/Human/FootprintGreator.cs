@@ -6,13 +6,14 @@ public class FootprintGreator : MonoBehaviour
     [SerializeField] private GameObject _stepPrefab;
     [SerializeField] private LayerMask _groundMask;
     [SerializeField] private int _groundLayerIndex = 6;
+    private const float _castDistance = 2f;
 
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.layer == _groundLayerIndex)
         {
             RaycastHit hit;
-            if (Physics.Raycast(transform.position, Vector3.down, out hit, 2, _groundMask))
+            if (Physics.Raycast(transform.position, Vector3.down, out hit, _castDistance, _groundMask))
             {
                 Vector3 pos = hit.point;
                 pos.y += 0.05f;

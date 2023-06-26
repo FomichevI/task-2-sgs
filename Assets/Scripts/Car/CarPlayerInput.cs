@@ -50,8 +50,8 @@ public class CarPlayerInput : MonoBehaviour
 
         _carPlayerController.Move(_verticalInput, _horizontalInput);
     }
-
-    private void AddEventToButton(Button button, Action actionPoinerDown, Action actionPoinerUp) //метод добавляет 2 события к кнопке (при удержании и при отпускании кнопки)
+    //метод добавляет 2 события к кнопке (при удержании и при отпускании кнопки)
+    private void AddEventToButton(Button button, Action actionPoinerDown, Action actionPoinerUp) 
     {
         EventTrigger trigger = button.GetComponent<EventTrigger>();
         EventTrigger.Entry entry1 = new EventTrigger.Entry();
@@ -63,7 +63,8 @@ public class CarPlayerInput : MonoBehaviour
         trigger.triggers.Add(entry1);
         trigger.triggers.Add(entry2);
     }
-    private void AddEventToButton(Button button, Action action, EventTriggerType triggerType) //метод для будущего улучшения скрипта
+    //метод для будущего улучшения скрипта
+    private void AddEventToButton(Button button, Action action, EventTriggerType triggerType) 
     {
         EventTrigger trigger = button.GetComponent<EventTrigger>();
         EventTrigger.Entry entry = new EventTrigger.Entry();
